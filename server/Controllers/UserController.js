@@ -10,9 +10,15 @@ export const getUser = async (req, res) => {
 
     if (user) {
       const { password, ...otherDetails } = user._doc;
-      res.status(200).json(otherDetails);
+      res.status(200).json({
+        success: true,
+        data: otherDetails,
+      });
     } else {
-      res.status(404).json('user does not exist');
+      res.status(404).json({
+        success: false,
+        data: 'user does not exist',
+      });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -34,12 +40,18 @@ export const updateUser = async (req, res) => {
       const user = await UserModel.findByIdAndUpdate(id, req.body, {
         new: true,
       });
-      res.status(200).json(user);
+      res.status(200).json({
+        success: true,
+        data: user,
+      });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   } else {
-    res.status(403).json('access denied');
+    res.status(403).json({
+      success: false,
+      data: 'access denied',
+    });
   }
 };
 
@@ -51,12 +63,18 @@ export const deleteUser = async (req, res) => {
   if (id === currentUserId || currentUserAdminStatus) {
     try {
       await UserModel.findByIdAndDelete(id);
-      res.status(200).json('user deleted successfully');
+      res.status(200).json({
+        success: true,
+        data: 'user deleted successfully',
+      });
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
   } else {
-    res.status(403).json('access denied');
+    res.status(403).json({
+      success: false,
+      data: 'access denied',
+    });
   }
 };
 
