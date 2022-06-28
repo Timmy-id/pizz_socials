@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import AuthRoute from './Routes/AuthRoute.js';
+import UserRoute from './Routes/UserRoute.js';
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
 app.use('/auth', AuthRoute);
+app.use('/users', UserRoute);
 
 mongoose
   .connect(MONGO_URI)
