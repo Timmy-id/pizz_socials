@@ -16,9 +16,9 @@ const PORT = process.env.PORT || 5000;
 app.use(express.json({ limit: '30mb', extended: true }));
 app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
-app.use('/auth', AuthRoute);
-app.use('/users', UserRoute);
-app.use('/posts', PostRoute);
+app.use('/api/v1/auth', AuthRoute);
+app.use('/api/v1/users', UserRoute);
+app.use('/api/v1/posts', PostRoute);
 
 mongoose
   .connect(MONGO_URI)
