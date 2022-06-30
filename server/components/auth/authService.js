@@ -27,12 +27,11 @@ export const registerUser = async (params, callback) => {
   }
 
   const user = new User(params);
-  const token = generateAccessToken(params.username);
 
   user
     .save()
     .then((response) => {
-      return callback(null, { ...response.toJSON(), token });
+      return callback(null, response);
     })
     .catch((error) => {
       return callback(error);
